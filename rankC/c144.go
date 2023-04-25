@@ -1,4 +1,4 @@
-package main
+package rankC
 
 /*
 あなたは生徒にしりとりの課題を出しました。生徒は英字小文字または英字大文字からなる N 個の単語を順に提出します。N 個の単語が与えられた順でしりとりが成立するかどうか判定してください。
@@ -50,22 +50,22 @@ Yes
 
 import "fmt"
 
-func main() {
-    var N int
-    fmt.Scan(&N)
+func RankC144() {
+	var N int
+	fmt.Scan(&N)
 
-    var prev string
-    fmt.Scan(&prev)
+	var prev string
+	fmt.Scan(&prev)
 
-    for i := 1; i < N; i++ {
-        var current string
-        fmt.Scan(&current)
-        if prev[len(prev)-1] != current[0] {
-            fmt.Printf("%c %c\n", prev[len(prev)-1], current[0])
-            return
-        }
-        prev = current
-    }
+	for i := 1; i < N; i++ {
+		var current string
+		fmt.Scan(&current)
+		if prev[len(prev)-1] != current[0] {
+			fmt.Printf("%c %c\n", prev[len(prev)-1], current[0])
+			return
+		}
+		prev = current
+	}
 
-    fmt.Println("Yes")
+	fmt.Println("Yes")
 }
