@@ -162,3 +162,76 @@ func ReadJissu() {
 		fmt.Println(num) // 実数を出力
 	}
 }
+
+func ReadNrowMcolumn() {
+
+	var n, m int
+	fmt.Scan(&n, &m) // 行列の行数と列数を入力
+
+	matrix := make([][]int, n)
+	for i := 0; i < n; i++ {
+		matrix[i] = make([]int, m)
+		for j := 0; j < m; j++ {
+			fmt.Scan(&matrix[i][j]) // 行列の各要素を入力
+		}
+	}
+
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			fmt.Print(matrix[i][j])
+			if j != m-1 {
+				fmt.Print(" ")
+			}
+		}
+		fmt.Println()
+	}
+}
+
+// N * N の九九表の出力
+// 自然数 N が入力されます。N 行 N 列の九九表を出力してください。
+func NkakeruN() {
+	var n int
+	fmt.Scan(&n)
+
+	for i := 1; i <= n; i++ {
+		for j := 1; j <= n; j++ {
+			if j == n {
+				fmt.Printf("%d", i*j)
+				continue
+			}
+			fmt.Printf("%d ", i*j)
+		}
+		fmt.Println()
+	}
+}
+
+//【行によって長さが違う二次元配列の表示】すべての行の長さと値が不定な 2 次元配列の出力
+
+func TwoArray() {
+	var n, m int
+	fmt.Scan(&n, &m)
+
+	a := make([]int, n)
+	for i := 0; i < n; i++ {
+		fmt.Scan(&a[i])
+	}
+
+	b := make([]int, m)
+	for i := 0; i < m; i++ {
+		fmt.Scan(&b[i])
+	}
+
+	index := 0
+	for i := 0; i < m; i++ {
+		for j := 0; j < b[i]; j++ {
+			if j == b[i]-1 {
+				fmt.Print(a[index])
+				index++
+				continue
+			}
+			fmt.Print(a[index], " ")
+			index++
+		}
+		fmt.Println()
+	}
+}

@@ -3,15 +3,30 @@ package main
 import "fmt"
 
 func main() {
-	var n int
-	fmt.Scan(&n) // 実数の個数を入力
+	var n, m int
+	fmt.Scan(&n, &m)
 
-	nums := make([]float64, n)
+	a := make([]int, n)
 	for i := 0; i < n; i++ {
-		fmt.Scan(&nums[i]) // 実数を入力
+		fmt.Scan(&a[i])
 	}
 
-	for _, num := range nums {
-		fmt.Println(num) // 実数を出力
+	b := make([]int, m)
+	for i := 0; i < m; i++ {
+		fmt.Scan(&b[i])
+	}
+
+	index := 0
+	for i := 0; i < m; i++ {
+		for j := 0; j < b[i]; j++ {
+			if j == b[i]-1 {
+				fmt.Print(a[index])
+				index++
+				continue
+			}
+			fmt.Print(a[index], " ")
+			index++
+		}
+		fmt.Println()
 	}
 }
