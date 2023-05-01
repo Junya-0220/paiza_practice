@@ -1,8 +1,8 @@
-package main
+package dataset
 
 import "fmt"
 
-func main() {
+func DispNarray() {
 	// N,Mを読み込む
 	var n, m int
 	fmt.Scan(&n, &m)
