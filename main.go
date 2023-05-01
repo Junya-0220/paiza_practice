@@ -1,32 +1,43 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	var n, m int
-	fmt.Scan(&n, &m)
+	var n, q int
+	fmt.Scan(&n, &q)
 
-	a := make([]int, n)
+	// スライスを作成
+	var slice []int
+
 	for i := 0; i < n; i++ {
-		fmt.Scan(&a[i])
+		var x int
+		fmt.Scan(&x)
+		slice = append(slice, x)
 	}
 
-	b := make([]int, m)
-	for i := 0; i < m; i++ {
-		fmt.Scan(&b[i])
-	}
-
-	index := 0
-	for i := 0; i < m; i++ {
-		for j := 0; j < b[i]; j++ {
-			if j == b[i]-1 {
-				fmt.Print(a[index])
-				index++
-				continue
-			}
-			fmt.Print(a[index], " ")
-			index++
+	for i := 0; i < q; i++ {
+		var qr, val int
+		fmt.Scan(&qr, &val)
+		if qr == 0 {
+			PushBackSlice(&slice, val)
+		} else if qr == 1 {
+			PopBackSlice(&slice)
+		} else if qr == 2 {
+			// スライスの中身を表示して確認
+			fmt.Println(slice)
 		}
-		fmt.Println()
+
 	}
+
+}
+
+func PushBackSlice(s *[]int, n int) {
+	*s = append(*s, n)
+
+}
+
+func PopBackSlice(s *[]int) {
+	*s = (*s)[:len(*s)-1]
 }
