@@ -140,3 +140,21 @@ func Shutsugenritsu() {
 	// 結果の出力
 	fmt.Println(strings.Trim(fmt.Sprint(count), "[]"))
 }
+
+func ChofukuJudge(){
+	nums := make(map[int]int)
+	var N int
+	fmt.Scan(&N)
+	for i := 0; i < N; i++ {
+		var A int
+		fmt.Scan(&A)
+		if i > 0 {
+			if nums[A] > 0 {
+				fmt.Println("Yes")
+			} else {
+				fmt.Println("No")
+			}
+		}
+		nums[A]++
+	}
+}
