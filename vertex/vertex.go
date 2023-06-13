@@ -48,3 +48,19 @@ func CreateVertex() {
 	}
 
 }
+
+func NewUser(nickname string, age int, birth string, state string) User {
+	return User{
+		Nickname: nickname,
+		Age:      age,
+		Birth:    birth,
+		State:    state,
+	}
+}
+
+func (u User) SearchAge(age int) string {
+	if u.Age == age {
+		return u.Nickname
+	}
+	return ""
+}
