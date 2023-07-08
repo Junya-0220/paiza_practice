@@ -72,3 +72,32 @@ func NijigenHairetsu {
 		fmt.Println(string(S[y][x]))
 	}
 }
+
+func NijigenHairetsu2 {
+	scanner := bufio.NewScanner(os.Stdin)
+
+	// h, w の入力を受け取る
+	scanner.Scan()
+	line := scanner.Text()
+	values := strings.Split(line, " ")
+	h, _ := strconv.Atoi(values[0])
+	w, _ := strconv.Atoi(values[1])
+
+	// s を入力して二次元スライスに格納する
+	s := make([][]byte, h)
+	for i := 0; i < h; i++ {
+		scanner.Scan()
+		s[i] = []byte(scanner.Text())
+	}
+
+	// 条件に合致する座標を出力する
+	for y := 0; y < h; y++ {
+		for x := 0; x < w; x++ {
+			if x == 0 || s[y][x-1] == '#' {
+				if x == w-1 || s[y][x+1] == '#' {
+					fmt.Println(y, x)
+				}
+			}
+		}
+	}
+}
