@@ -15,7 +15,7 @@
 
 
 ```Go
-func Step1() {
+func MapStep1() {
 	var H, W, N int
 	fmt.Scan(&H, &W, &N)
 
@@ -52,7 +52,7 @@ func Step1() {
 S[i][j]='#' とすることで要素を書き換えられます。
 
 ```Go
-func Step2() {
+func MapStep2() {
 	var h, w, n int
 	fmt.Scan(&h, &w, &n)
 
@@ -101,7 +101,7 @@ func Step2() {
 このとき、 s[y][x + 1] == "#" or x == w - 1 とすると範囲外参照が起こるため解答コードのように記述しています。
 
 ```Go
-func Step3() {
+func MapStep3() {
 	var h, w int
 	fmt.Scan(&h, &w)
 
@@ -150,7 +150,7 @@ func Step3() {
 このとき、範囲外参照を防ぐため上端、下端を先に判定するように記述しています
 
 ```Go
-func Step4() {
+func MapStep4() {
 	var h, w int
 	fmt.Scan(&h, &w)
 
@@ -198,7 +198,7 @@ func Step4() {
 flag_row and flag_column が True のときマスの座標を出力しています。
 
 ```Go
-func Step5() {
+func MapStep5() {
 	var h, w int
 	fmt.Scan(&h, &w)
 

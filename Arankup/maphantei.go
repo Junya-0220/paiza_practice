@@ -2,7 +2,7 @@ package arankup
 
 import "fmt"
 
-func Step1() {
+func MapStep1() {
 	var H, W, N int
 	fmt.Scan(&H, &W, &N)
 
@@ -23,7 +23,7 @@ func Step1() {
 	}
 }
 
-func Step2() {
+func MapStep2() {
 	var h, w, n int
 	fmt.Scan(&h, &w, &n)
 
@@ -48,7 +48,7 @@ func Step2() {
 	}
 }
 
-func Step3() {
+func MapStep3() {
 	var h, w int
 	fmt.Scan(&h, &w)
 
@@ -73,7 +73,7 @@ func Step3() {
 	}
 }
 
-func Step4() {
+func MapStep4() {
 	var h, w int
 	fmt.Scan(&h, &w)
 
@@ -98,7 +98,7 @@ func Step4() {
 	}
 }
 
-func Step5() {
+func MapStep5() {
 	var h, w int
 	fmt.Scan(&h, &w)
 
