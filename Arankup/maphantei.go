@@ -47,3 +47,28 @@ func Step2() {
 		fmt.Println(string(s[y]))
 	}
 }
+
+func Step3() {
+	var h, w int
+	fmt.Scan(&h, &w)
+
+	s := make([][]rune, h)
+	for i := 0; i < h; i++ {
+		s[i] = make([]rune, w)
+		var line string
+		fmt.Scan(&line)
+		for j, char := range line {
+			s[i][j] = char
+		}
+	}
+
+	for y := 0; y < h; y++ {
+		for x := 0; x < w; x++ {
+			if x == 0 || s[y][x-1] == '#' {
+				if x == w-1 || s[y][x+1] == '#' {
+					fmt.Println(y, x)
+				}
+			}
+		}
+	}
+}
