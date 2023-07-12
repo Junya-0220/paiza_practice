@@ -149,5 +149,91 @@ func Step3() {
 1つ目のif文で注目しているマスの上側のマスについて判定し、2つめのif文で注目しているマスの下側のマスについて判定しています。
 このとき、範囲外参照を防ぐため上端、下端を先に判定するように記述しています
 
+```Go
+func Step4() {
+	var h, w int
+	fmt.Scan(&h, &w)
+
+	s := make([][]rune, h)
+	for i := 0; i < h; i++ {
+		s[i] = make([]rune, w)
+		var line string
+		fmt.Scan(&line)
+		for j, char := range line {
+			s[i][j] = char
+		}
+	}
+
+	for y := 0; y < h; y++ {
+		for x := 0; x < w; x++ {
+			if y == 0 || s[y-1][x] == '#' {
+				if y == h-1 || s[y+1][x] == '#' {
+					fmt.Println(y, x)
+				}
+			}
+		}
+	}
+}
+```
+
 
 ## Step5 マップの判定・縦横
+
+マップの行数 H と列数 W とマップを表す H 行 W 列の文字列 S_1 ... S_H が与えられるので、
+隣接する上下左右のマスが全て '#' であるマスの y , x 座標 を答えてください。
+
+ただし、左端のマスの場合は「右のマスが '#' 」であれば、右端のマスの場合は「左のマスが '#' 」であれば隣接する左右のマスが全て '#' であるものとします。
+また、上端のマスの場合は「下のマスが '#' 」であれば、下端のマスの場合は「上のマスが '#' 」であれば隣接する上下のマスが全て "#" であるものとします。
+
+なお、マスの座標系は左上端のマスの座標を ( y , x ) = ( 0 , 0 ) とし、
+下方向が y 座標の正の向き、右方向が x 座標の正の向きとします。
+
+### 方針
+
+マップの j 行 i 列のマスに隣接している要素は、それぞれ S[i][j-1], S[i][j+1], S[i-1][j], S[i+1][j] で受け取れます。
+上下左右の端のマスの時は、マップ外に当たるマスは条件を満たすとするか、例外的に処理して判定します。
+
+二重ループを使いすべてのマスを確認します。
+左右のマスが"#"であるかを flag_row 、上下のマスが"#"であるかを flag_column で管理します。
+flag_row and flag_column が True のときマスの座標を出力しています。
+
+```Go
+func Step5() {
+	var h, w int
+	fmt.Scan(&h, &w)
+
+	s := make([][]rune, h)
+	for i := 0; i < h; i++ {
+		s[i] = make([]rune, w)
+		var line string
+		fmt.Scan(&line)
+		for j, char := range line {
+			s[i][j] = char
+		}
+	}
+
+	for y := 0; y < h; y++ {
+		for x := 0; x < w; x++ {
+			flagRow := false
+			flagColumn := false
+
+			if x == 0 || s[y][x-1] == '#' {
+				if x == w-1 || s[y][x+1] == '#' {
+					flagRow = true
+				}
+			}
+
+			if y == 0 || s[y-1][x] == '#' {
+				if y == h-1 || s[y+1][x] == '#' {
+					flagColumn = true
+				}
+			}
+
+			if flagColumn && flagRow {
+				fmt.Println(y, x)
+			}
+		}
+	}
+}
+
+```
