@@ -47,3 +47,29 @@ func ZahyoStep2() {
 		fmt.Println(y, x)
 	}
 }
+
+func ZahyoStep3() {
+	var y, x int
+	var nowDirection string
+	fmt.Scan(&y, &x, &nowDirection)
+
+	var d string
+	fmt.Scan(&d)
+
+	lr := 1
+	if d == "L" {
+		lr = -1
+	}
+
+	if nowDirection == "N" {
+		x += lr
+	} else if nowDirection == "E" {
+		y += lr
+	} else if nowDirection == "S" {
+		x -= lr
+	} else if nowDirection == "W" {
+		y -= lr
+	}
+
+	fmt.Println(y, x)
+}

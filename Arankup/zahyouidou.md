@@ -90,11 +90,69 @@ func ZahyoStep2() {
 }
 
 ```
+
 ## Step3 座標系での移動・向き
+
+開始時点の y , x 座標 と向いている方角 D が与えられます。
+続く 1 行で移動の向き d が与えられるので、その向きに移動した後の y , x 座標 を答えてください。
+移動前に向いている方角によって同じ移動の向きでも座標の変化が違うことに気をつけてください。
+
+なお、マスの座標系は左上端のマスの座標を ( y , x ) = ( 0 , 0 ) とし、
+下方向が y 座標の正の向き、右方向が x 座標の正の向きとします。
+以下の図を参考にしてみてください。
+
+<img width="500" src="./image/zahyo3-1.png">
+<img width="500" src="./image/zahyo3-2.png">
+<img width="500" src="./image/zahyo3-3.png">
+<img width="500" src="./image/zahyo3-4.png">
+
 
 ### 方針
 
+向いている方角と移動方向の組によって移動した結果の座標の変化が決まります。
+北(N)を向いているとき
+	左(L)に移動 → x座標を -1
+	右(R)に移動 → x座標を +1
+南(S)を向いているとき
+	左(L)に移動 → x座標を +1
+	右(R)に移動 → x座標を -1
+東(E)を向いているとき
+	左(L)に移動 → y座標を -1
+	右(R)に移動 → y座標を +1
+西(W)を向いているとき
+	左(L)に移動 → y座標を +1
+	右(R)に移動 → y座標を -1
+これらを素直に実装します。
+
+あらかじめ、右に移動するときの座標の変化を考えておけば、左に移動するときは、-1*(右に移動するときの座標の変化) であることを用いて実装しています。
+移動方向がLだった場合には lr に -1 を、そうでない場合(R)は lr に1を入れることで移動量を決定しています。
+
 ```Go
+func ZahyoStep3() {
+	var y, x int
+	var nowDirection string
+	fmt.Scan(&y, &x, &nowDirection)
+
+	var d string
+	fmt.Scan(&d)
+
+	lr := 1
+	if d == "L" {
+		lr = -1
+	}
+
+	if nowDirection == "N" {
+		x += lr
+	} else if nowDirection == "E" {
+		y += lr
+	} else if nowDirection == "S" {
+		x -= lr
+	} else if nowDirection == "W" {
+		y -= lr
+	}
+
+	fmt.Println(y, x)
+}
 ```
 ## Step4 座標系での規則的な移動
 
