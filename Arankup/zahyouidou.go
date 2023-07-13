@@ -73,3 +73,44 @@ func ZahyoStep3() {
 
 	fmt.Println(y, x)
 }
+
+func ZahyoStep4() {
+	var x, y, n int
+	fmt.Scan(&x, &y, &n)
+
+	directions := []string{"E", "S", "W", "N"}
+	nowDirection := 0
+	count := 0
+	maxCount := 1
+	first := true
+
+	for i := 0; i < n; i++ {
+		x, y = move(directions[nowDirection], x, y)
+		count++
+		if first && count == maxCount {
+			first = false
+			count = 0
+			nowDirection = (1 + nowDirection) % 4
+		} else if count == maxCount {
+			first = true
+			count = 0
+			maxCount++
+			nowDirection = (1 + nowDirection) % 4
+		}
+	}
+
+	fmt.Println(x, y)
+}
+
+func move(direction string, x, y int) (int, int) {
+	if direction == "N" {
+		y -= 1
+	} else if direction == "E" {
+		x += 1
+	} else if direction == "S" {
+		y += 1
+	} else if direction == "W" {
+		x -= 1
+	}
+	return x, y
+}

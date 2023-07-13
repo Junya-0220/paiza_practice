@@ -154,9 +154,78 @@ func ZahyoStep3() {
 	fmt.Println(y, x)
 }
 ```
+
 ## Step4 座標系での規則的な移動
+開始時点の x , y 座標と移動の歩数 N が与えられます。
+以下の図のように時計回りに渦を巻くように移動を N 歩行った後の x , y 座標 を答えてください。
+
+なお、マスの座標系は下方向が y 座標の正の向き、右方向が x 座標の正の向きとします。
+
+<img width="500" src="./image/zahyo4.png">
+
 
 ### 方針
 
+移動の規則性を見つけることで実装ができます。
+移動の方向の規則性
+移動の方向は、ESWNESWNE... と続いていく → 各方角をこの順番で格納した配列を用いれば移動方向の管理が楽になります。
+移動方向は全部で4種類、しかし移動回数は定まっていないので配列の要素の個数はいくつ用意すれば良いのか？ → カウント変数 d などを用意して、各方向を 配列名[d%4] とすることで、 ESWNESWNE... の順に要素が得られます。
+移動のマス数の規則性
+移動のマス数は 11223344... と続いていく → 各数字について1回目の移動かどうかを管理するフラグを持っておきます。
+これらを整理すると、以下の図のようになります。
+<img width="500" src="./image/zahyo4-1.png">
+<img width="500" src="./image/zahyo4-2.png">
+<img width="500" src="./image/zahyo4-3.png">
+
+リスト directions と、カウント変数 now_direction で移動方向の管理をしています。
+移動を move という関数にすることでコードをみやすくしています。
+first で、その移動マス数が1回目かどうかを管理しています。
+現在の移動マス数を count で、現在の方角へ進む最大のマス数を max_count で表します。
+1マス移動するたびに count += 1 して、count == max_count になったら
+その移動マス数での移動が 1 回目の場合 → 方向転換をして、その回数でもう一度移動させます。
+その移動マス数での移動が 2 回目の場合 → 方向転換をして、移動回数を 1 増やして、移動させます。
+
+
 ```Go
+func ZahyoStep4() {
+	var x, y, n int
+	fmt.Scan(&x, &y, &n)
+
+	directions := []string{"E", "S", "W", "N"}
+	nowDirection := 0
+	count := 0
+	maxCount := 1
+	first := true
+
+	for i := 0; i < n; i++ {
+		x, y = move(directions[nowDirection], x, y)
+		count++
+		if first && count == maxCount {
+			first = false
+			count = 0
+			nowDirection = (1 + nowDirection) % 4
+		} else if count == maxCount {
+			first = true
+			count = 0
+			maxCount++
+			nowDirection = (1 + nowDirection) % 4
+		}
+	}
+
+	fmt.Println(x, y)
+}
+
+func move(direction string, x, y int) (int, int) {
+	if direction == "N" {
+		y -= 1
+	} else if direction == "E" {
+		x += 1
+	} else if direction == "S" {
+		y += 1
+	} else if direction == "W" {
+		x -= 1
+	}
+	return x, y
+}
+
 ```
