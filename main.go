@@ -1,36 +1,46 @@
 package main
 
-import "fmt"
-
-type Node struct {
-	value int
-	left  *Node
-	right *Node
-}
-
-func insert(node *Node, value int) *Node {
-	if node == nil {
-		return &Node{value: value}
-	}
-
-	if value < node.value {
-		node.left = insert(node.left, value)
-	} else {
-		node.right = insert(node.right, value)
-	}
-	return node
-}
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
 
 func main() {
-	var root *Node
-	root = insert(root, 3)
-	root = insert(root, 6)
-	root = insert(root, 5)
-	root = insert(root, 7)
-	root = insert(root, 1)
-	root = insert(root, 10)
-	root = insert(root, 2)
-	root = insert(root, 8)
-	root = insert(root, 700)
-	fmt.Println(root.left.value, root.right.value)
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	input := scanner.Text()
+	inputs := strings.Split(input, " ")
+
+	// 入力値の m 以外を整数に変換
+	h, _ := strconv.Atoi(inputs[0])
+	w, _ := strconv.Atoi(inputs[1])
+	sy, _ := strconv.Atoi(inputs[2])
+	sx, _ := strconv.Atoi(inputs[3])
+	m := inputs[4]
+
+	board := make([][]string, h)
+	for i := 0; i < h; i++ {
+		scanner.Scan()
+		line := scanner.Text()
+		board[i] = strings.Split(line, "")
+	}
+
+	move := map[string][2]int{
+		"N": {-1, 0},
+		"E": {0, 1},
+		"S": {1, 0},
+		"W": {0, -1},
+	}
+
+	ny := sy + move[m][0]
+	nx := sx + move[m][1]
+
+	if 0 <= ny && ny <= h-1 && 0 <= nx && nx <= w-1 && board[ny][nx] != "#" {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
 }
