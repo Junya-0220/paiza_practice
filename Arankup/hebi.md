@@ -77,7 +77,59 @@ func HebiStep1() {
 
 ### 方針
 
+移動が可能かどうかの各条件は次のような処理に言い換えられます。
+「移動先が障害物でない」→ map[移動後のy座標][移動後のx座標]!='#'
+「移動先がマップの範囲外でない」 → 
+0 <= 移動後のy座標 && 移動後のy座標 < H && 0 <= 移動後のx座標 && 移動後のx座標 < W
+これらを全て満たした場合、座標を出力するコードを書きます。
+
 ```Go
+package main
+
+import (
+	"fmt"
+)
+
+var sx, sy int
+
+func move(D, M byte) {
+	LR := 1
+
+	if M == 'L' {
+		LR = -1
+	}
+
+	switch D {
+	case 'N':
+		sx += LR
+	case 'S':
+		sx -= LR
+	case 'E':
+		sy += LR
+	default:
+		sy -= LR
+	}
+}
+
+func main() {
+	var H, W int
+	var d, m byte
+	fmt.Scan(&H, &W, &sy, &sx, &d, &m)
+
+	S := make([]string, H)
+	for i := 0; i < H; i++ {
+		fmt.Scan(&S[i])
+	}
+
+	move(d, m)
+
+	if 0 <= sx && sx < W && 0 <= sy && sy < H && S[sy][sx] != '#' {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
+}
+
 ```
 
 ## Step3 移動が可能かの判定・複数回の移動

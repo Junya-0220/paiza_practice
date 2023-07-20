@@ -2,18 +2,44 @@ package main
 
 import (
 	"fmt"
-	searchpractice "paiza_pracitce/algo/search"
 )
 
+var sx, sy int
+
+func move(D, M byte) {
+	LR := 1
+
+	if M == 'L' {
+		LR = -1
+	}
+
+	switch D {
+	case 'N':
+		sx += LR
+	case 'S':
+		sx -= LR
+	case 'E':
+		sy += LR
+	default:
+		sy -= LR
+	}
+}
+
 func main() {
-	nums := []int{0, 1, 5, 7, 9, 11, 15, 20, 24}
-	fmt.Println("numsの長さ", len(nums)-1)
-	target := 24
-	s := searchpractice.BinarySearch(nums, target)
-	fmt.Println("index番号は:", s)
-	if s == -1 {
-		fmt.Println("見つからなかった")
+	var H, W int
+	var d, m byte
+	fmt.Scan(&H, &W, &sy, &sx, &d, &m)
+
+	S := make([]string, H)
+	for i := 0; i < H; i++ {
+		fmt.Scan(&S[i])
+	}
+
+	move(d, m)
+
+	if 0 <= sx && sx < W && 0 <= sy && sy < H && S[sy][sx] != '#' {
+		fmt.Println("Yes")
 	} else {
-		fmt.Println(nums[s])
+		fmt.Println("No")
 	}
 }
