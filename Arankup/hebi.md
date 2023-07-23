@@ -153,7 +153,55 @@ func main() {
 
 ### 方針
 
+移動が可能かどうかの各条件は次のような処理に言い換えられます。
+「移動先が障害物でない」→ map[移動後のy座標][移動後のx座標]!='#'
+「移動先がマップの範囲外でない」 → 0<=移動後のy座標 && 移動後のy座標<H && 0<=移動後のx座標 && 移動後のx座標<W
+これらを全て満たした場合、座標を出力して現在位置を更新します。 それ以外の場合、 Stop を出力して、プログラムを終了するコードを書きます。
+
+
 ```Go
+func HebiStep3() {
+	var h, w, sy, sx, n int
+	fmt.Scan(&h, &w, &sy, &sx, &n)
+
+	s := make([]string, h)
+	for i := 0; i < h; i++ {
+		fmt.Scan(&s[i])
+	}
+
+	directions := [4]byte{'N', 'E', 'S', 'W'}
+	now := 0
+
+	for i := 0; i < n; i++ {
+		var d string
+		fmt.Scan(&d)
+
+		if d == "L" {
+			now = (3 + now) % 4
+		} else {
+			now = (1 + now) % 4
+		}
+
+		switch directions[now] {
+		case 'N':
+			sy--
+		case 'E':
+			sx++
+		case 'S':
+			sy++
+		case 'W':
+			sx--
+		}
+
+		if sx < 0 || sx >= w || sy < 0 || sy >= h || s[sy][sx] == '#' {
+			fmt.Println("Stop")
+			break
+		} else {
+			fmt.Println(sy, sx)
+		}
+	}
+}
+
 ```
 
 ## Step4 移動が可能かの判定・幅のある移動
