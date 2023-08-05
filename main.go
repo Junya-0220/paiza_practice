@@ -1,7 +1,9 @@
 package main
 
-import arankup "paiza_pracitce/Arankup"
+import (
+	"paiza_pracitce/algo/dataandalgo/chap03"
+)
 
 func main() {
-	arankup.HebiStep3()
+	chap03.Code03_1()
 }
